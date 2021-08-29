@@ -1,6 +1,6 @@
 import express from 'express';
 import index from 'src/routes';
-import errorMiddleware from 'src/middleware/error';
+import errorMiddleware from 'src/middlewares/error';
 import HttpException from 'src/exceptions/HttpException';
 
 const CONTAINER_PORT = process.env.CONTAINER_PORT;

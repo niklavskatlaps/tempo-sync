@@ -1,11 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
 import { Worklog, GetWorklogsResponse, NewWorklog } from 'src/types';
 import { groupBy } from 'lodash';
+import HttpException from 'src/exceptions/HttpException';
 
 const BASE_URL = process.env.TEMPO_REST_API_ENDPOINT;
 
 if (!BASE_URL) {
-    throw new Error('Error! Missing Tempo REST API endpoint.');
+    throw new HttpException('Error! Missing Tempo REST API endpoint.');
 }
 
 export const getWorklogs = async (
@@ -14,12 +15,16 @@ export const getWorklogs = async (
     startDate: string, 
     endDate: string
 ): Promise<Worklog[]> => {
-    const { data: { results } } = await axios.get<GetWorklogsResponse>(
-        `${ BASE_URL }/user/${ accountId }?from=${ startDate }&to=${ endDate }&limit=1000`, 
-        { headers: { Authorization: `Bearer ${ token }` } }
-    );
-
-    return results;
+    try {
+        const { data: { results } } = await axios.get<GetWorklogsResponse>(
+            `${ BASE_URL }/user/${ accountId }?from=${ startDate }&to=${ endDate }&limit=1000`, 
+            { headers: { Authorization: `Bearer ${ token }` } }
+        );
+    
+        return results;
+    } catch (error) {
+        throw new HttpException('Error fetching worklogs.');
+    }
 };
 
 export const loadWorklogs = async (

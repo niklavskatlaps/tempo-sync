@@ -35,7 +35,7 @@ In order to copy your worklogs from one Atlassian account to another, you need t
 
 1. [Find your Atlassian account IDs](https://community.atlassian.com/t5/Jira-questions/where-can-i-find-my-Account-ID/qaq-p/976527)
 2. Generate Tempo OAuth 2.0 token for both Atlassian accounts: 
-    * Go to **Tempo -> Settings**, scroll down to **Data Access** select **API integration** and click on **New Token**.
+    * Go to **Tempo -> Settings**, scroll down to **Data Access**, select **API integration** and click on **New Token**.
 3. Add JSON data to the POST request body:
     ```
     {

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { ParamsDictionary } from 'express-serve-static-core';
 import { RequestBody } from 'src/types';
 import { getTransformedWorklogs, getWorklogs, loadWorklogs } from 'src/utils/etl';
@@ -11,7 +11,8 @@ export const get = (_request: Request, response: Response): void => {
 
 export const post = async (
     request: Request<ParamsDictionary, string, RequestBody>, 
-    response: Response
+    response: Response,
+    next: NextFunction
 ): Promise<void> => {
     try {
         const { 
@@ -27,17 +28,18 @@ export const post = async (
         const { startDate, endDate } = getStartAndEndDates(period);
         const worklogs = await getWorklogs(sourceAccountId, sourceToken, startDate, endDate);
 
-        const worklogsForLoad = getTransformedWorklogs(worklogs,destinationAccountId, destinationIssueKey, description);
+        if (!worklogs.length) {
+            response.send('There are no worklogs to copy. Please choose a different time period.');
+            return;
+        }
+
+        const worklogsForLoad = getTransformedWorklogs(worklogs, destinationAccountId, destinationIssueKey, description);
         
         const responses = await loadWorklogs(worklogsForLoad, destinationToken);
         const totalCount = responses.filter(({ status }) => status === 200).length;
 
         response.send(`Success! ${ totalCount } worklogs copied.`);
     } catch(error) {
-        if (error instanceof Error) {
-            const { message } = error;
-
-            response.send(message);
-        }
+        next(error);
     }
 };

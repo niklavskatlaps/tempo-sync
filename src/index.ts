@@ -1,5 +1,18 @@
 import express from 'express';
+import index from 'src/routes';
 
-const server = express();
+const CONTAINER_PORT = process.env.CONTAINER_PORT;
+const HOST_PORT = process.env.HOST_PORT;
 
-server.listen(process.env.APP_PORT, () => console.log('Server ready!'));
+if (!CONTAINER_PORT || !HOST_PORT) {
+    throw new Error('Error! Missing ports.');
+}
+
+const app = express();
+
+app.use(express.json());
+app.use('/', index);
+
+app.listen(CONTAINER_PORT, () => { 
+    console.log(`App ready at http://localhost:${ HOST_PORT }`);
+});

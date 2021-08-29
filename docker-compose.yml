@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  app:
+    build: .
+    command: yarn start
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "${HOST_PORT}:${CONTAINER_PORT}"

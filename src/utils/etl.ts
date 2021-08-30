@@ -30,13 +30,19 @@ export const getWorklogs = async (
 export const loadWorklogs = async (
     worklogs: NewWorklog[], 
     token: string
-): Promise<AxiosResponse[]> => Promise.all(worklogs.map(
-    (worklog) => axios.post(
-        `${ BASE_URL }`, 
-        worklog,
-        { headers: { Authorization: `Bearer ${ token }` } }
-    )
-));
+): Promise<AxiosResponse[]> => {
+    try {
+        return await Promise.all(worklogs.map(
+            (worklog) => axios.post(
+                `${ BASE_URL }`, 
+                worklog,
+                { headers: { Authorization: `Bearer ${ token }` } }
+            )
+        ));
+    } catch(error) {
+        throw new HttpException('Error creating new worklogs.');
+    }
+};
 
 
 export const getTransformedWorklogs = (

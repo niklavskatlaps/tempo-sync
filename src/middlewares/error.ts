@@ -12,7 +12,7 @@ function errorMiddleware(
 
     console.error(error);
 
-    response.status(status).send({
+    response.status(status).json({
         status,
         message
     });

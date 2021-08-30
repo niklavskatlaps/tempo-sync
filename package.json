@@ -10,12 +10,14 @@
     },
     "dependencies": {
         "axios": "^0.21.1",
+        "bluebird": "^3.7.2",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
         "lodash": "^4.17.21",
         "luxon": "^2.0.2"
     },
     "devDependencies": {
+        "@types/bluebird": "^3.5.36",
         "@types/express": "^4.17.13",
         "@types/lodash": "^4.14.172",
         "@types/luxon": "^2.0.1",
@@ -62,7 +64,7 @@
                 4
             ],
             "@typescript-eslint/no-unused-vars": [
-                "error", 
+                "error",
                 {
                     "argsIgnorePattern": "^_"
                 }

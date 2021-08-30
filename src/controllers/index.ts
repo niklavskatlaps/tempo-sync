@@ -31,22 +31,22 @@ export const post = async (
 
         const { startDate, endDate } = getStartAndEndDates(period);
         const worklogs = await getWorklogs(sourceAccountId, sourceToken, startDate, endDate);
-        const fetchedCount = worklogs.length;
+        const extractedCount = worklogs.length;
 
-        if (!fetchedCount) {
+        if (!extractedCount) {
             throw new HttpException('There are no worklogs to copy. Please choose a different time period.', 406);
         }
 
-        const worklogsForLoad = getTransformedWorklogs(worklogs, destinationAccountId, destinationIssueKey, description);
+        const transformedWorklogs = getTransformedWorklogs(worklogs, destinationAccountId, destinationIssueKey, description);
         
-        const responses = await loadWorklogs(worklogsForLoad, destinationToken);
-        const createdCount = responses.filter(({ status }) => status === 200).length;
+        const responses = await loadWorklogs(transformedWorklogs, destinationToken);
+        const loadedCount = responses.filter(({ status }) => status === 200).length;
 
         response.json({
             status: 200,
             message: 'Success!',
-            fetched: fetchedCount,
-            created: createdCount
+            extracted: extractedCount,
+            loaded: loadedCount
         });
     } catch(error) {
         next(error);

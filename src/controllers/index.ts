@@ -14,7 +14,7 @@ export const get = (_request: Request, response: Response): void => {
 };
 
 export const post = async (
-    request: Request<ParamsDictionary, string, RequestBody>, 
+    request: Request<ParamsDictionary, Record<string, string | number>, RequestBody>, 
     response: Response,
     next: NextFunction
 ): Promise<void> => {
@@ -31,19 +31,22 @@ export const post = async (
 
         const { startDate, endDate } = getStartAndEndDates(period);
         const worklogs = await getWorklogs(sourceAccountId, sourceToken, startDate, endDate);
+        const fetchedCount = worklogs.length;
 
-        if (!worklogs.length) {
+        if (!fetchedCount) {
             throw new HttpException('There are no worklogs to copy. Please choose a different time period.', 406);
         }
 
         const worklogsForLoad = getTransformedWorklogs(worklogs, destinationAccountId, destinationIssueKey, description);
         
         const responses = await loadWorklogs(worklogsForLoad, destinationToken);
-        const totalCount = responses.filter(({ status }) => status === 200).length;
+        const createdCount = responses.filter(({ status }) => status === 200).length;
 
         response.json({
             status: 200,
-            message: `Success! ${ totalCount } worklog(s) copied.`
+            message: 'Success!',
+            fetched: fetchedCount,
+            created: createdCount
         });
     } catch(error) {
         next(error);

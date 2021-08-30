@@ -5,7 +5,9 @@ import HttpException from 'src/exceptions/HttpException';
 
 export const SUPPORTED_PERIODS = ['month', 'week', 'day'] as const;
 
-export const validateRequest = (request: Request<ParamsDictionary, string, RequestBody>): ValidatedRequestData => {
+export const validateRequest = (
+    request: Request<ParamsDictionary, Record<string, string | number>, RequestBody>
+): ValidatedRequestData => {
     const { 
         query: { period: selectedPeriod }, 
         body: { source, destination } 

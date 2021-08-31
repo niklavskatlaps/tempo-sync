@@ -59,9 +59,9 @@ class WorklogsService {
         issueKey: string,
         description: string
     ): NewWorklog[] => {
-        const grouped = groupBy(worklogs, ({ startDate }) => startDate);
+        const worklogsDictionary = groupBy(worklogs, ({ startDate }) => startDate);
     
-        return Object.values(grouped).map((worklogsGroupedByDay) => {
+        return Object.values(worklogsDictionary).map((worklogsGroupedByDay) => {
             return worklogsGroupedByDay.reduce((prev, curr) => {
                 const { timeSpentSeconds: prevTimeSpentSeconds, billableSeconds: prevBillableSeconds } = prev;
                 const { timeSpentSeconds, billableSeconds, startDate } = curr;

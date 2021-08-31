@@ -80,3 +80,8 @@ export interface NewWorklog {
     startTime: string
     description: string
 }
+
+export interface StartEndDates {
+    startDate: string,
+    endDate: string
+}

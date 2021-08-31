@@ -1,7 +1,7 @@
 import express from 'express';
-import index from 'src/routes';
+import indexRouter from 'src/routes';
 import errorMiddleware from 'src/middlewares/error';
-import HttpException from 'src/exceptions/HttpException';
+import HttpException from 'src/libs/HttpException';
 
 const CONTAINER_PORT = process.env.CONTAINER_PORT;
 const HOST_PORT = process.env.HOST_PORT;
@@ -13,7 +13,7 @@ if (!CONTAINER_PORT || !HOST_PORT) {
 const app = express();
 
 app.use(express.json());
-app.use('/', index);
+app.use('/', indexRouter);
 app.use(errorMiddleware);
 
 app.listen(CONTAINER_PORT, () => { 

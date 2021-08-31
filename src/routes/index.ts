@@ -1,9 +1,9 @@
 import express from 'express';
-import { get, post } from 'src/controllers';
+import { getAppStatus, copyWorklogs } from 'src/controllers';
 
 const router  = express.Router();
 
-router.get('/', get);
-router.post('/', post);
+router.get('/', getAppStatus);
+router.post('/', copyWorklogs);
 
 export default router;

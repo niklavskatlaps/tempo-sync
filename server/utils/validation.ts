@@ -1,7 +1,7 @@
-import { RequestBody, ValidatedRequestData } from 'src/types';
+import { RequestBody, ValidatedRequestData } from '../types';
 import { Request } from 'express';
 import { ParamsDictionary } from 'express-serve-static-core';
-import HttpException from 'src/libs/HttpException';
+import HttpException from 'libs/HttpException';
 
 export const SUPPORTED_PERIODS = ['month', 'week', 'day'] as const;
 

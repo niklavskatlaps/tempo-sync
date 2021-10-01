@@ -6,7 +6,7 @@
             "es2020"
         ],
         "outDir": "./dist",
-        "rootDir": "./src",
+        "rootDir": ".",
         "moduleResolution": "node",
         "declaration": true,
         "inlineSourceMap": true,
@@ -25,19 +25,15 @@
         "pretty": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "baseUrl": "./",
+        "baseUrl": ".",
         "paths": {
-            "src/*": [
-                "./src/*"
+            "*": [
+                "*"
             ]
         }
     },
     "include": [
-        "src/**/*.ts"
-    ],
-    "exclude": [
-        "node_modules/**",
-        "dist/**"
+        "**/*.ts"
     ],
     "compileOnSave": false
 }

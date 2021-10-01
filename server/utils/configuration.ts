@@ -1,4 +1,4 @@
-import HttpException from 'src/libs/HttpException';
+import HttpException from 'libs/HttpException';
 
 export const getEndpointUrl = (): string => {
     if (!process.env.TEMPO_REST_API_ENDPOINT) {

@@ -2,7 +2,10 @@ version: '3.7'
 services:
   server:
     build:
-      context: ./server
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BUILD_CONTEXT=server
     container_name: server
     command: yarn dev
     ports:
@@ -18,11 +21,16 @@ services:
       - app_network
   client:
     build:
-      context: ./client
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BUILD_CONTEXT=client
     container_name: client
     command: yarn dev
     ports:
       - "${CLIENT_PORT}:${CONTAINER_PORT}"
+    environment:
+      - SERVER_ENDPOINT=${SERVER_ENDPOINT}
     volumes:
        - ./client:/usr/app/client
        - /usr/app/client/node_modules
@@ -31,3 +39,4 @@ services:
 networks:
   app_network:
     external: true
+    

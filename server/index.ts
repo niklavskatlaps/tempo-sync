@@ -5,6 +5,7 @@ import HttpException from 'libs/HttpException';
 
 const CONTAINER_PORT = process.env.CONTAINER_PORT;
 const SERVER_PORT = process.env.SERVER_PORT;
+const PRODUCTION_PORT = process.env.PORT;
 
 if (!CONTAINER_PORT || !SERVER_PORT) {
     throw new HttpException('Error! Missing ports.');
@@ -16,6 +17,6 @@ app.use(express.json());
 app.use('/', indexRouter);
 app.use(errorMiddleware);
 
-app.listen(CONTAINER_PORT, () => { 
-    console.log(`App ready at http://localhost:${ SERVER_PORT }`);
+app.listen(PRODUCTION_PORT || CONTAINER_PORT, () => { 
+    console.log(`Listening on port ${ PRODUCTION_PORT || SERVER_PORT }`);
 });

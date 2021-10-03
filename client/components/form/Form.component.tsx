@@ -57,7 +57,7 @@ const FormComponent: React.FC = () => {
     }
 
 
-    function renderForm(): JSX.Element {
+    function renderContent(): JSX.Element {
         return (
             <form 
               className={ `mt-4 mt-md-5 pb-5 ${ isLoading ? 'opacity-25' : 'opacity-100' }` } 
@@ -138,7 +138,7 @@ const FormComponent: React.FC = () => {
     return (
         <div className="container">
             <Loader isLoading={ isLoading } />
-            { renderForm() }
+            { renderContent() }
         </div>
     );
 };

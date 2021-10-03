@@ -9,7 +9,10 @@
         "client"
     ],
     "scripts": {
-        "dev": "yarn workspaces run dev"
+        "dev": "yarn workspaces run dev",
+        "build": "yarn workspaces run build",
+        "start": "yarn workspaces run start",
+        "eslint": "yarn workspaces run eslint"
     },
     "devDependencies": {
         "husky": "^7.0.2"

@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
 import { Promise } from 'bluebird';
 import { groupBy } from 'lodash';
-import HttpException from 'src/libs/HttpException';
-import { Worklog, GetWorklogsResponse, NewWorklog } from 'src/types';
-import { getEndpointUrl } from 'src/utils/configuration';
+import HttpException from 'libs/HttpException';
+import { Worklog, GetWorklogsResponse, NewWorklog } from 'types';
+import { getEndpointUrl } from 'utils/configuration';
 
 const MAX_CONCURRENT_REQUESTS = 12;
 

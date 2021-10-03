@@ -1,4 +1,4 @@
-import { Period, StartEndDates } from 'src/types';
+import { Period, StartEndDates } from '../types';
 import { DateTime } from 'luxon';
 
 export const getStartAndEndDates = (selectedPeriod: Period): StartEndDates => {

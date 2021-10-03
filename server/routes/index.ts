@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAppStatus, copyWorklogs } from 'src/controllers';
+import { getAppStatus, copyWorklogs } from 'controllers';
 
 const router  = express.Router();
 

@@ -1,10 +1,42 @@
 version: '3.7'
 services:
-  app:
-    build: .
-    command: yarn start
-    volumes:
-      - .:/usr/app/
-      - /usr/app/node_modules
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BUILD_CONTEXT=server
+    container_name: server
+    command: yarn dev
     ports:
-      - "${HOST_PORT}:${CONTAINER_PORT}"
+      - "${SERVER_PORT}:${CONTAINER_PORT}"
+    environment:
+      - SERVER_PORT=${SERVER_PORT}
+      - CONTAINER_PORT=${CONTAINER_PORT}
+      - TEMPO_REST_API_ENDPOINT=${TEMPO_REST_API_ENDPOINT}
+    volumes:
+      - ./server:/usr/app/server
+      - /usr/app/server/node_modules
+    networks:
+      - app_network
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BUILD_CONTEXT=client
+    container_name: client
+    command: yarn dev
+    ports:
+      - "${CLIENT_PORT}:${CONTAINER_PORT}"
+    environment:
+      - SERVER_ENDPOINT=${SERVER_ENDPOINT}
+    volumes:
+       - ./client:/usr/app/client
+       - /usr/app/client/node_modules
+    networks:
+      - app_network
+networks:
+  app_network:
+    external: true
+    

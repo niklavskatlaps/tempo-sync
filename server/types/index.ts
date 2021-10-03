@@ -1,4 +1,4 @@
-import { SUPPORTED_PERIODS } from 'src/utils/validation';
+import { SUPPORTED_PERIODS } from 'utils/validation';
 
 export interface RequestBody {
     source: Source,

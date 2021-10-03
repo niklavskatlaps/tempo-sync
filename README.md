@@ -27,9 +27,10 @@ cp .env.example .env
 ```bash
 docker-compose up --build
 ```
-7. Observe that the app is up and running by sending a GET request to http://localhost:4000
+7. Observe that the server is up and running by sending a GET request to http://localhost:4000
+8. Observe that the client is up and running by going to http://localhost:3000
 
-### How to copy your worklogs
+### How to copy your worklogs from the server-side
 
 In order to copy your worklogs from one Atlassian account to another, you need to:
 
@@ -57,3 +58,5 @@ In order to copy your worklogs from one Atlassian account to another, you need t
     * month (copy worklogs from this month)
 5. Profit
 
+### How to copy your worklogs from the client-side (WIP)
+1. Open http://localhost:3000, fill in all the fields and press "Submit"

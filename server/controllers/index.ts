@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { ParamsDictionary } from 'express-serve-static-core';
-import { RequestBody } from 'src/types';
-import { validateRequest } from 'src/utils/validation';
-import { getStartAndEndDates } from 'src/utils/date';
-import WorklogsService from 'src/services/WorklogsService';
+import { RequestBody } from 'types';
+import { validateRequest } from 'utils/validation';
+import { getStartAndEndDates } from 'utils/date';
+import WorklogsService from 'services/WorklogsService';
 
 export const getAppStatus = (_request: Request, response: Response): void => {
     response.json({

@@ -70,7 +70,7 @@ const FormComponent: React.FC = () => {
                               { ...register('sourceAccountId', { required: 'Source account id is required' }) }
                               className={ `form-control shadow-none ${ errors.sourceAccountId ? 'border-danger' : '' }` }
                               placeholder="Source account id"
-                          />
+                            />
                             <small className="text-danger position-absolute">{ errors.sourceAccountId?.message }</small>
                         </div>
                         <div className="col-md-6">
@@ -78,7 +78,7 @@ const FormComponent: React.FC = () => {
                               { ...register('sourceToken', { required: 'Source token is required' }) }
                               className={ `form-control shadow-none ${ errors.sourceToken ? 'border-danger' : '' }` }
                               placeholder="Source token"
-                          />
+                            />
                             <small className="text-danger position-absolute">{ errors.sourceToken?.message }</small>
                         </div>
                         <div className="col-md-6">
@@ -86,7 +86,7 @@ const FormComponent: React.FC = () => {
                               { ...register('destinationAccountId', { required: 'Destination account id is required' }) }
                               className={ `form-control shadow-none ${ errors.destinationAccountId ? 'border-danger' : '' }` }
                               placeholder="Destination account id"
-                          />
+                            />
                             <small className="text-danger position-absolute">{ errors.destinationAccountId?.message }</small>
                         </div>
                         <div className="col-md-6">
@@ -94,7 +94,7 @@ const FormComponent: React.FC = () => {
                               { ...register('destinationToken', { required: 'Destination token is required' }) }
                               className={ `form-control shadow-none ${ errors.destinationToken ? 'border-danger' : '' }` }
                               placeholder="Destination token"
-                          />
+                            />
                             <small className="text-danger position-absolute">{ errors.destinationToken?.message }</small>
                         </div>
                         <div className="col-md-6">
@@ -102,7 +102,7 @@ const FormComponent: React.FC = () => {
                               { ...register('issueKey', { required: 'Issue key is required' }) }
                               className={ `form-control shadow-none ${ errors.issueKey ? 'border-danger' : '' }` }
                               placeholder="Issue key"
-                          />
+                            />
                             <small className="text-danger position-absolute">{ errors.issueKey?.message }</small>
                         </div>
                         <div className="col-md-6">

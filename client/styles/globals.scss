@@ -37,3 +37,13 @@ footer {
 .wrapper {
     min-height: calc(100vh - var(--footer-height));
 }
+
+.popup {
+    &-content {
+        width: 85%;
+    
+        @media (min-width: 992px) {
+            width: 60%;
+        }
+    }
+}

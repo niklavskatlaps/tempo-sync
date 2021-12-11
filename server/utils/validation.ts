@@ -25,7 +25,6 @@ export const validateRequest = (
         description
     } = destination;
 
-
     if (
         Object.values(source).some((value) => typeof value !== 'string') ||
         Object.values(destination).some((value) => typeof value !== 'string')

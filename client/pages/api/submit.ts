@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { RequestBody, RequestResponse } from '../../types';
@@ -8,9 +7,9 @@ export default async function handler(
     response: NextApiResponse<RequestResponse>
 ): Promise<void> {
     try {
-        const { 
+        const {
             body: {
-                period, 
+                period,
                 sourceAccountId,
                 sourceToken,
                 destinationAccountId,
@@ -19,7 +18,7 @@ export default async function handler(
                 description
             }
         } = request;
-    
+
         const { data } = await axios.request<RequestBody, AxiosResponse<RequestResponse>>({
             baseURL: process.env.SERVER_ENDPOINT,
             method: 'POST',
@@ -40,22 +39,24 @@ export default async function handler(
 
         response.send(data);
     } catch (error) {
+        const defaultErrorMessage = 'Something went wrong';
+
         if (axios.isAxiosError(error))  {
-            const { 
+            const {
                 response: {
                     data: {
-                        message: errorMessageFromApi
-                    }
-                } = { data: { message: 'Something went wrong' } }
+                        message: errorMessageFromApi = defaultErrorMessage
+                    } = {}
+                } = {}
             } = error as AxiosError<RequestResponse>;
-
 
             response.send({ status: 200, message: errorMessageFromApi });
             return;
-        } 
+        }
 
-        const message = error instanceof Error ? error.message : 'Something went wrong';
-
-        response.send({ status: 200, message });
+        response.send({
+            status: 200,
+            message: error instanceof Error ? error.message : defaultErrorMessage
+        });
     }
 }

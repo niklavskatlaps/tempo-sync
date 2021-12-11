@@ -8,9 +8,9 @@ export const SUPPORTED_PERIODS = ['month', 'week', 'day'] as const;
 export const validateRequest = (
     request: Request<ParamsDictionary, Record<string, string | number>, RequestBody>
 ): ValidatedRequestData => {
-    const { 
-        query: { period: selectedPeriod }, 
-        body: { source, destination } 
+    const {
+        query: { period: selectedPeriod },
+        body: { source, destination }
     } = request;
 
     if (!source || !destination) {
@@ -18,10 +18,10 @@ export const validateRequest = (
     }
 
     const { accountId: sourceAccountId, token: sourceToken } = source;
-    const { 
+    const {
         accountId: destinationAccountId,
-        token: destinationToken, 
-        issueKey: destinationIssueKey, 
+        token: destinationToken,
+        issueKey: destinationIssueKey,
         description
     } = destination;
 
@@ -31,7 +31,7 @@ export const validateRequest = (
         Object.values(destination).some((value) => typeof value !== 'string')
     ) {
         throw new HttpException(
-            'Error! All input values for both source and destinition should be of type string.', 
+            'Error! All input values for both source and destination should be of type string.',
             400
         );
     }

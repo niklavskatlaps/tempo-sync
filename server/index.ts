@@ -17,6 +17,6 @@ app.use(express.json());
 app.use('/', indexRouter);
 app.use(errorMiddleware);
 
-app.listen(PRODUCTION_PORT || CONTAINER_PORT, () => { 
-    console.log(`Server listening on port ${ PRODUCTION_PORT || SERVER_PORT }`);
+app.listen(PRODUCTION_PORT || CONTAINER_PORT, () => {
+    console.log(`Server listening on port ${PRODUCTION_PORT || SERVER_PORT}`);
 });

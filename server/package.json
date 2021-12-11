@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "dev": "nodemon --delay 500ms --watch ./ -e ts --exec 'ts-node' -r dotenv/config -r tsconfig-paths/register index.ts",
+        "dev": "nodemon --delay 500ms --watch ./ -e ts --exec 'ts-node' -r dotenv/config -r tsconfig-paths/register index.ts dotenv_config_path=../.env",
         "build": "tsc",
         "start": "NODE_PATH=dist/ node dist/index.js",
         "eslint": "eslint ./ --resolve-plugins-relative-to . --cache --no-error-on-unmatched-pattern --ext .ts"

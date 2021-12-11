@@ -3,7 +3,7 @@ import { ParamsDictionary } from 'express-serve-static-core';
 import { RequestBody } from 'types';
 import { validateRequest } from 'utils/validation';
 import { getStartAndEndDates } from 'utils/date';
-import WorklogsService from 'services/WorklogsService';
+import WorklogService from 'services/WorklogService';
 
 export const getAppStatus = (_request: Request, response: Response): void => {
     response.json({
@@ -13,13 +13,13 @@ export const getAppStatus = (_request: Request, response: Response): void => {
 };
 
 export const copyWorklogs = async (
-    request: Request<ParamsDictionary, Record<string, string | number>, RequestBody>, 
+    request: Request<ParamsDictionary, Record<string, string | number>, RequestBody>,
     response: Response,
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { 
-            sourceAccountId, 
+        const {
+            sourceAccountId,
             sourceToken,
             period,
             destinationAccountId,
@@ -28,22 +28,17 @@ export const copyWorklogs = async (
             description
         } = validateRequest(request);
         const { startDate, endDate } = getStartAndEndDates(period);
-        
-        const worklogsToTransform = await WorklogsService.getWorklogs(
-            sourceAccountId, 
-            sourceToken, 
-            startDate, 
-            endDate
+        const worklogService = new WorklogService(
+            sourceAccountId,
+            sourceToken,
+            destinationAccountId,
+            destinationToken,
+            destinationIssueKey
         );
 
-        const worklogsToLoad = WorklogsService.getTransformedWorklogs(
-            worklogsToTransform, 
-            destinationAccountId, 
-            destinationIssueKey, 
-            description
-        );
-        
-        const responses = await WorklogsService.loadWorklogs(worklogsToLoad, destinationToken);
+        const rawWorklogs = await worklogService.getWorklogs(startDate, endDate);
+        const transformedWorklogs = worklogService.transformWorklogs(rawWorklogs, description);
+        const responses = await worklogService.loadWorklogs(transformedWorklogs);
 
         response.json({
             status: 200,

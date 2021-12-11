@@ -13,10 +13,10 @@ const FormComponent: React.FC = () => {
     const isFirstRender = useRef(true);
     const [isLoading, setIsLoading] = useState(false);
     const [response, setResponse] = useState<RequestResponse>();
-    const { 
-        register, 
-        handleSubmit, 
-        formState: { errors } 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
     } = useForm<FormValues>({ defaultValues: getFromLocalStorage<FormValues>(FORM_DATA) });
 
     useEffect(() => {
@@ -39,9 +39,9 @@ const FormComponent: React.FC = () => {
     }
 
     function sendNotification(): void {
-        const { 
-            created: createdWorklogCount = undefined, 
-            message = 'Something went wrong' 
+        const {
+            created: createdWorklogCount,
+            message = 'Something went wrong'
         } = response || {};
 
         if (createdWorklogCount === undefined) {
@@ -54,12 +54,12 @@ const FormComponent: React.FC = () => {
             return;
         }
 
-        toast.success(`Success! ${ createdWorklogCount } new worklogs created!`);
+        toast.success(`Success! ${createdWorklogCount} new worklogs created!`);
     }
 
     function renderInfo(): JSX.Element {
         return (
-            <Popup 
+            <Popup
               trigger={ <button type="button" className="btn btn-link">What are these fields?</button> }
               modal
               lockScroll
@@ -71,10 +71,11 @@ const FormComponent: React.FC = () => {
                             <b>Source Account ID:&nbsp;</b>Atlassian account you want to extract and copy the worklogs from.
                         </span>
                         <span className="sm-12">
-                            <a 
-                              className="link-primary" 
+                            <a
+                              className="link-primary"
                               href="https://community.atlassian.com/t5/Jira-questions/where-can-i-find-my-Account-ID/qaq-p/976527"
-                              target="_blank" rel="noreferrer"
+                              target="_blank"
+                              rel="noreferrer"
                             >
                                 Where can I find my Atlassian account ID?
                             </a>
@@ -91,10 +92,11 @@ const FormComponent: React.FC = () => {
                             <b>Destination Account ID:&nbsp;</b>Atlassian account you want to copy the worklogs to.&nbsp;
                         </span>
                         <span className="sm-12">
-                            <a 
-                              className="link-primary" 
+                            <a
+                              className="link-primary"
                               href="https://community.atlassian.com/t5/Jira-questions/where-can-i-find-my-Account-ID/qaq-p/976527"
-                              target="_blank" rel="noreferrer"
+                              target="_blank"
+                              rel="noreferrer"
                             >
                                 Where can I find my Atlassian account ID?
                             </a>
@@ -132,11 +134,11 @@ const FormComponent: React.FC = () => {
 
     function renderContent(): JSX.Element {
         return (
-            <form 
-              className={ `mt-4 mt-md-5 pb-5 ${ isLoading ? 'opacity-25' : 'opacity-100' }` } 
+            <form
+              className={ `mt-4 mt-md-5 pb-5 ${ isLoading ? 'opacity-25' : 'opacity-100' }` }
               onSubmit={ handleSubmit(onSubmit) }
             >
-                <fieldset className="mx-lg-5" disabled={ isLoading ? true : false }>
+                <fieldset className="mx-lg-5" disabled={ isLoading }>
                     <div className="row g-4 mx-lg-5">
                         <div className="col-md-6">
                             <input
@@ -179,8 +181,8 @@ const FormComponent: React.FC = () => {
                             <small className="text-danger position-absolute">{ errors.issueKey?.message }</small>
                         </div>
                         <div className="col-md-6">
-                            <select 
-                              { ...register('period', { required: 'Period is required' }) } 
+                            <select
+                              { ...register('period', { required: 'Period is required' }) }
                               className={ `form-control shadow-none ${ errors.period ? 'border-danger' : '' }` }
                             >
                                 <option value="">Select period...</option>
